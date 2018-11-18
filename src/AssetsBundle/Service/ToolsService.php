@@ -56,7 +56,7 @@ class ToolsService
         $oMvcEvent = $this->getMvcEvent();
 
         //Reset route match and request
-        $oMvcEvent->setRouteMatch(new \Zend\Mvc\Router\RouteMatch(array()))->setRequest(new \Zend\Http\Request());
+        $oMvcEvent->setRouteMatch(new \Zend\Router\RouteMatch(array()))->setRequest(new \Zend\Http\Request());
 
         //Retrieve AssetsBundle service options
         $oOptions = $oAssetsBundleService->getOptions();
@@ -150,9 +150,12 @@ class ToolsService
         /* @var $oAssetsBundleService \AssetsBundle\Service\Service */
 
         // Empty cache directory except .gitignore
-        foreach (new \RecursiveIteratorIterator(
-        new \RecursiveDirectoryIterator($oAssetsBundleService->getOptions()->getCachePath(), \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::CHILD_FIRST
-        ) as $oFileinfo) {
+        $cachepath = $oAssetsBundleService->getOptions()->getCachePath();
+        $cacheiterator = new \RecursiveIteratorIterator(
+        							new \RecursiveDirectoryIterator($cachepath, \RecursiveDirectoryIterator::SKIP_DOTS),
+        							\RecursiveIteratorIterator::CHILD_FIRST);
+
+        foreach ($cacheiterator as $oFileinfo) {
             if ($oFileinfo->isDir()) {
                 rmdir($oFileinfo->getRealPath());
             } elseif ($oFileinfo->getBasename() !== '.gitignore') {
@@ -165,9 +168,8 @@ class ToolsService
 
         // Retrieve Asset File Filters Manager
         $oAssetFileFiltersManager = $oAssetsBundleService->getAssetFilesManager()->getAssetFileFiltersManager();
-        $aRegisteredServices = $oAssetFileFiltersManager->getRegisteredServices();
         // Empty asset file filters cache directory except .gitignore
-        foreach ($aRegisteredServices['instances'] as $sFilter) {
+        foreach ($oAssetFileFiltersManager->getRegisteredServices() as $sFilter => $thefilter) {
             $oFilter = $oAssetFileFiltersManager->get($sFilter);
             if (is_dir($sAssetFileFilterProcessedDirPath = $oFilter->getAssetFileFilterProcessedDirPath())) {
                 foreach (new \RecursiveIteratorIterator(
@@ -187,7 +189,7 @@ class ToolsService
 
         // Empty config directory except .gitignore
         $sConfigurationFileDirectoryPath = dirname($oAssetsBundleService->getAssetFilesManager()->getAssetFilesConfiguration()->getConfigurationFilePath());
-        if(is_dir($sConfigurationFileDirectoryPath)){        
+        if(is_dir($sConfigurationFileDirectoryPath)){
             foreach (new \RecursiveIteratorIterator(
                 new \RecursiveDirectoryIterator($sConfigurationFileDirectoryPath, \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::CHILD_FIRST
             ) as $oFileinfo) {

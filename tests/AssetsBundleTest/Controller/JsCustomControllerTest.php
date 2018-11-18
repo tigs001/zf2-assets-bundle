@@ -56,7 +56,8 @@ class JsCustomControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpC
         if (!$bAllowOverride) {
             $oServiceLocator->setAllowOverride(true);
         }
-        $oServiceLocator->setService('Config', $this->configuration)->setAllowOverride($bAllowOverride);
+        $oServiceLocator->setService('Config', $this->configuration);
+        $oServiceLocator->setAllowOverride($bAllowOverride);
 
         // Empty cache and processed directories
         $oServiceLocator->get('AssetsBundleToolsService')->emptyCache(false);
@@ -86,7 +87,8 @@ class JsCustomControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpC
         if (!$bAllowOverride) {
             $oServiceLocator->setAllowOverride(true);
         }
-        $oServiceLocator->setService('Config', $this->configuration)->setAllowOverride($bAllowOverride);
+        $oServiceLocator->setService('Config', $this->configuration);
+        $oServiceLocator->setAllowOverride($bAllowOverride);
 
         //Retrieve assets bundle service
         $oAssetsBundleService = $this->getApplicationServiceLocator()->get('AssetsBundleService');
@@ -123,7 +125,8 @@ class JsCustomControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpC
         if (!$bAllowOverride) {
             $oServiceLocator->setAllowOverride(true);
         }
-        $oServiceLocator->setService('Config', $this->configuration)->setAllowOverride($bAllowOverride);
+        $oServiceLocator->setService('Config', $this->configuration);
+        $oServiceLocator->setAllowOverride($bAllowOverride);
 
         $this->dispatch('/file-error');
         $this->assertResponseStatusCode(200);
@@ -146,7 +149,8 @@ class JsCustomControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractHttpC
         if (!$bAllowOverride) {
             $oServiceLocator->setAllowOverride(true);
         }
-        $oServiceLocator->setService('Config', $this->configuration)->setAllowOverride($bAllowOverride);
+        $oServiceLocator->setService('Config', $this->configuration);
+        $oServiceLocator->setAllowOverride($bAllowOverride);
 
         $this->dispatch('/empty');
         $this->assertResponseStatusCode(200);

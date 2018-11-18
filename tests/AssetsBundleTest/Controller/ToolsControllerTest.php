@@ -64,7 +64,8 @@ class ToolsControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractConsoleC
         }
 
         //Retrieve service locator
-        $oServiceLocator = $this->getApplicationServiceLocator()->setAllowOverride(true);
+        $oServiceLocator = $this->getApplicationServiceLocator();
+        $oServiceLocator->setAllowOverride(true);
 
         //Store original configuration
         $aConfiguration = $this->originalConfiguration = $oServiceLocator->get('Config');
@@ -74,7 +75,7 @@ class ToolsControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractConsoleC
         $oServiceLocator->setService('Config', $this->configuration = \Zend\Stdlib\ArrayUtils::merge($aConfiguration, $this->configuration));
 
         //Rebuild AssetsBundle service options
-        $oServiceLocator->setService('AssetsBundleServiceOptions', $oServiceLocator->create('AssetsBundleServiceOptions'));
+        $oServiceLocator->setService('AssetsBundleServiceOptions', $oServiceLocator->build('AssetsBundleServiceOptions'));
 
         //Retrieve event manager
         $oEventManager = $this->getApplication()->getEventManager();
@@ -83,7 +84,7 @@ class ToolsControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractConsoleC
         $oServiceLocator->get('AssetsBundleService')->detach($oEventManager);
 
         //Rebuild AssetsBundle service
-        $oServiceLocator->setService('AssetsBundleService', $oServiceLocator->create('AssetsBundleService')->attach($oEventManager));
+        $oServiceLocator->setService('AssetsBundleService', $oServiceLocator->build('AssetsBundleService')->attach($oEventManager));
 
         // Empty cache and processed directories
         \AssetsBundleTest\Bootstrap::getServiceManager()->get('AssetsBundleToolsService')->emptyCache(false);
@@ -194,7 +195,8 @@ class ToolsControllerTest extends \Zend\Test\PHPUnit\Controller\AbstractConsoleC
         if (!$bAllowOverride) {
             $oServiceLocator->setAllowOverride(true);
         }
-        $oServiceLocator->setService('Config', $this->originalConfiguration)->setAllowOverride($bAllowOverride);
+        $oServiceLocator->setService('Config', $this->originalConfiguration);
+        $oServiceLocator->setAllowOverride($bAllowOverride);
 
         // Empty cache and processed directories
         \AssetsBundleTest\Bootstrap::getServiceManager()->get('AssetsBundleToolsService')->emptyCache(false);

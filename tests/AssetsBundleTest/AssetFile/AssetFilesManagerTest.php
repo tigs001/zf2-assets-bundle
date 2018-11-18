@@ -2,7 +2,7 @@
 
 namespace AssetsBundleTest\AssetFile;
 
-class AssetFilesManagerTest extends \PHPUnit_Framework_TestCase
+class AssetFilesManagerTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -15,7 +15,9 @@ class AssetFilesManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->assetFilesManager = new \AssetsBundle\AssetFile\AssetFilesManager();
+    	$sm = \AssetsBundleTest\Bootstrap::getServiceManager();
+        $this->assetFilesManager = $sm->get('AssetsBundle\AssetFile\AssetFilesManager');
+        // new \AssetsBundle\AssetFile\AssetFilesManager();
     }
 
     public function testRewriteDataUrl()

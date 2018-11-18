@@ -9,10 +9,12 @@ class Module implements
      * @param \Zend\EventManager\EventInterface $oEvent
      */
     public function onBootstrap(\Zend\EventManager\EventInterface $oEvent) {
-        $oApplication = $oEvent->getApplication();
+        $oApplication = $oEvent->getApplication(); 	/* @var $oApplication \Zend\Mvc\ApplicationInterface */
 
         //Attach AssesBundle service events
-        $oApplication->getEventManager()->attach($oApplication->getServiceManager()->get('AssetsBundleService'));
+        $eventmgr = $oApplication->getEventManager(); 		/* @var $eventmgr \Zend\EventManager\EventManagerInterface */
+        $bundleservice = $oApplication->getServiceManager()->get('AssetsBundleService'); 	/* @var $bundleservice \AssetsBundle\Service\Service */
+        $bundleservice->attach($eventmgr);
     }
 
     /**

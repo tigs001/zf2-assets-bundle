@@ -453,7 +453,7 @@ class AssetFilesManager
     public function getOptions()
     {
         if (!($this->options instanceof \AssetsBundle\Service\ServiceOptions)) {
-            $this->setOptions(new \AssetsBundle\Service\ServiceOptions());
+        	throw new \LogicException('As of ZF3, you must inject the AssetsBundleServiceOptions from the Service factory.');
         }
         return $this->options;
     }
@@ -478,7 +478,7 @@ class AssetFilesManager
     public function getAssetFilesConfiguration()
     {
         if (!$this->assetFilesConfiguration instanceof \AssetsBundle\AssetFile\AssetFilesConfiguration) {
-            $this->setAssetFilesConfiguration(new \AssetsBundle\AssetFile\AssetFilesConfiguration());
+        	throw new \LogicException('As of ZF3, you must inject the AssetFilesConfiguration from the Service factory.');
         }
         return $this->assetFilesConfiguration;
     }
@@ -495,6 +495,7 @@ class AssetFilesManager
         return $this;
     }
 
+
     /**
      * Retrieve the asset file filters manager. Lazy loads an instance if none currently set.
      *
@@ -503,10 +504,11 @@ class AssetFilesManager
     public function getAssetFileFiltersManager()
     {
         if (!$this->assetFileFiltersManager instanceof \AssetsBundle\AssetFile\AssetFileFiltersManager) {
-            $this->setAssetFileFiltersManager(new \AssetsBundle\AssetFile\AssetFileFiltersManager());
+        	throw new \LogicException('As of ZF3, you must inject the AssetFileFiltersManager from the Service factory.');
         }
         return $this->assetFileFiltersManager;
     }
+
 
     /**
      * Set the asset files cache manager
@@ -528,7 +530,7 @@ class AssetFilesManager
     public function getAssetFilesCacheManager()
     {
         if (!$this->assetFilesCacheManager instanceof \AssetsBundle\AssetFile\AssetFilesCacheManager) {
-            $this->setAssetFilesCacheManager(new \AssetsBundle\AssetFile\AssetFilesCacheManager());
+        	throw new \LogicException('As of ZF3, you must inject the AssetFilesCacheManager from the Service factory.');
         }
         return $this->assetFilesCacheManager;
     }

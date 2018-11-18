@@ -31,17 +31,19 @@ NOTE : If you want to contribute don't hesitate, I'll review any PR.
 
 Name | Version
 -----|--------
-[php](https://secure.php.net/) | >=5.3.3
-[zendframework/zend-eventmanager](https://github.com/zendframework/zend-eventmanager) | 2.*
-[zendframework/zend-http](https://github.com/zendframework/zend-http) | 2.*
-[zendframework/zend-mvc](https://github.com/zendframework/zend-mvc) | 2.*
-[zendframework/zend-modulemanager](https://github.com/zendframework/zend-modulemanager) | 2.*
-[zendframework/zend-config](https://github.com/zendframework/zend-config) | 2.*
-[zendframework/zend-console](https://github.com/zendframework/zend-console) | 2.*
-[zendframework/zend-view](https://github.com/zendframework/zend-view) | 2.*
-[zendframework/zend-serializer](https://github.com/zendframework/zend-serializer) | 2.*
-[zendframework/zend-log](https://github.com/zendframework/zend-log) | 2.*
-[zendframework/zend-i18n](https://github.com/zendframework/zend-i18n) | 2.*
+[php](https://secure.php.net/) | >=7
+[zendframework/zend-servicemanager](https://github.com/zendframework/zend-servicemanager) | >=3
+[zendframework/zend-eventmanager](https://github.com/zendframework/zend-eventmanager) | >=3
+[zendframework/zend-http](https://github.com/zendframework/zend-http) | >=2
+[zendframework/zend-mvc](https://github.com/zendframework/zend-mvc) | >=3
+[zendframework/zend-modulemanager](https://github.com/zendframework/zend-modulemanager) | >=2
+[zendframework/zend-config](https://github.com/zendframework/zend-config) | >=3
+[zendframework/zend-console](https://github.com/zendframework/zend-console) | >=2
+[zendframework/zend-mvc-console](https://github.com/zendframework/zend-mvc-console) | >=1.2
+[zendframework/zend-view](https://github.com/zendframework/zend-view) | >=2
+[zendframework/zend-serializer](https://github.com/zendframework/zend-serializer) | >=2
+[zendframework/zend-log](https://github.com/zendframework/zend-log) | >=2
+[zendframework/zend-i18n](https://github.com/zendframework/zend-i18n) | >=2
 [oyejorge/less.php](https://github.com/oyejorge/less.php) | 1.*
 [mrclay/minify](https://github.com/mrclay/minify) | 2.*
 [tedivm/jshrink](https://github.com/tedivm/jshrink) | 1.*

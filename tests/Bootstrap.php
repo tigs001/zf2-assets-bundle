@@ -39,7 +39,7 @@ class Bootstrap {
                 }
             }
         }
-        
+
 
         //Use ModuleManager to load this module and it's dependencies
         static::$config = \Zend\Stdlib\ArrayUtils::merge(array(
@@ -47,8 +47,12 @@ class Bootstrap {
                         'module_paths' => $aZf2ModulePaths
                     )
                         ), $aTestConfig);
-        static::$serviceManager = new \Zend\ServiceManager\ServiceManager(new \Zend\Mvc\Service\ServiceManagerConfig());
-        static::$serviceManager->setService('ApplicationConfig', static::$config)->get('ModuleManager')->loadModules();
+        $smconfig = new \Zend\Mvc\Service\ServiceManagerConfig();
+        static::$serviceManager = new \Zend\ServiceManager\ServiceManager($smconfig->toArray());
+        static::$serviceManager->setService('ApplicationConfig', static::$config);
+
+        $modulemanager = static::$serviceManager->get('ModuleManager');
+        $modulemanager->loadModules();
     }
 
     /**

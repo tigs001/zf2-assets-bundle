@@ -68,7 +68,7 @@ abstract class AbstractAssetFileFilter extends \Zend\Stdlib\AbstractOptions impl
     public function getOptions()
     {
         if (!($this->options instanceof \AssetsBundle\Service\ServiceOptions)) {
-            $this->setOptions(new \AssetsBundle\Service\ServiceOptions());
+        	throw new \LogicException('As of ZF3, you must inject the AssetsBundleServiceOptions from the Service factory.');
         }
         return $this->options;
     }

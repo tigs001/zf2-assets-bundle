@@ -104,7 +104,7 @@ class AssetFilesCacheManager
         if (!in_array($sAssetFileType, array(\AssetsBundle\AssetFile\AssetFile::ASSET_CSS, \AssetsBundle\AssetFile\AssetFile::ASSET_JS))) {
             throw new \InvalidArgumentException(__METHOD__ . 'allows "' . \AssetsBundle\AssetFile\AssetFile::ASSET_CSS . '" & "' . \AssetsBundle\AssetFile\AssetFile::ASSET_JS . '" asset file type, "' . $sAssetFileType . '" given');
         }
-        
+
         $sCacheFileName = $this->getOptions()->getCacheFileName();
         $sCacheFileExtension = \AssetsBundle\AssetFile\AssetFile::getAssetFileDefaultExtension($sAssetFileType);
 
@@ -115,7 +115,7 @@ class AssetFilesCacheManager
                 'asset_file_type' => $sAssetFileType
             ));
         }
-        return $aAssetFiles;   
+        return $aAssetFiles;
     }
 
     /**
@@ -246,7 +246,7 @@ class AssetFilesCacheManager
     public function getOptions()
     {
         if (!($this->options instanceof \AssetsBundle\Service\ServiceOptions)) {
-            $this->setOptions(new \AssetsBundle\Service\ServiceOptions());
+        	throw new \LogicException('As of ZF3, you must inject the AssetsBundleServiceOptions from the Service factory.');
         }
         return $this->options;
     }

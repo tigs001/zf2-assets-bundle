@@ -2,7 +2,7 @@
 
 namespace AssetsBundleTest\Service;
 
-class ServiceTest extends \PHPUnit_Framework_TestCase
+class ServiceTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -16,8 +16,9 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         // Empty cache and processed directories
-        \AssetsBundleTest\Bootstrap::getServiceManager()->get('AssetsBundleToolsService')->emptyCache(false);
-        $this->service = new \AssetsBundle\Service\Service();
+        $sm = \AssetsBundleTest\Bootstrap::getServiceManager();
+        $sm->get('AssetsBundleToolsService')->emptyCache(false);
+        $this->service = $sm->get('AssetsBundleService');
     }
 
     public function testGetOptions()
@@ -29,7 +30,8 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('\AssetsBundle\AssetFile\AssetFilesManager', $oAssetFileManager = $this->service->getAssetFilesManager());
 
-        $oOptions = new \AssetsBundle\Service\ServiceOptions();
+        $sm = \AssetsBundleTest\Bootstrap::getServiceManager();
+        $oOptions = $sm->get('AssetsBundleServiceOptions');
         $this->service->setOptions($oOptions);
 
         $this->assertSame($oOptions, $oAssetFileManager->getOptions());
@@ -37,7 +39,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testSetRoute()
     {
-        $oRouteMatch = new \Zend\Mvc\Router\RouteMatch(array('controller' => 'test-module\index-controller', 'action' => 'index'));
+        $oRouteMatch = new \Zend\Router\RouteMatch(array('controller' => 'test-module\index-controller', 'action' => 'index'));
 
         //Module
         $this->assertInstanceOf('AssetsBundle\Service\ServiceOptions', $this->service->getOptions()->setModuleName(current(explode('\\', $oRouteMatch->getParam('controller')))));

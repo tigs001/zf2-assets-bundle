@@ -14,12 +14,9 @@ return array(
     'AssetsBundle\AssetFile\AssetFileFilter\JsAssetFileFilter' => __DIR__ . '/src/AssetsBundle/AssetFile/AssetFileFilter/JsAssetFileFilter.php',
     'AssetsBundle\AssetFile\AssetFileFilter\LesscAssetFileFilter' => __DIR__ . '/src/AssetsBundle/AssetFile/AssetFileFilter/LesscAssetFileFilter.php',
     'AssetsBundle\AssetFile\AssetFileFilter\LessphpAssetFileFilter' => __DIR__ . '/src/AssetsBundle/AssetFile/AssetFileFilter/LessphpAssetFileFilter.php',
-    'AssetsBundle\AssetFile\AssetFileFiltersManager' => __DIR__ . '/src/AssetsBundle/AssetFile/AssetFileFiltersManager.php',
-    'AssetsBundle\AssetFile\AssetFilesCacheManager' => __DIR__ . '/src/AssetsBundle/AssetFile/AssetFilesCacheManager.php',
-    'AssetsBundle\AssetFile\AssetFilesConfiguration' => __DIR__ . '/src/AssetsBundle/AssetFile/AssetFilesConfiguration.php',
-    'AssetsBundle\AssetFile\AssetFilesManager' => __DIR__ . '/src/AssetsBundle/AssetFile/AssetFilesManager.php',
     'AssetsBundle\Controller\ToolsController' => __DIR__ . '/src/AssetsBundle/Controller/ToolsController.php',
     'AssetsBundle\Factory\AssetFileFilter\CssAssetFileFilterFactory' => __DIR__ . '/src/AssetsBundle/Factory/AssetFileFilter/CssAssetFileFilterFactory.php',
+	'AssetsBundle\Factory\AssetsFileFiltersManagerFactory' => __DIR__ . '/src/AssetsBundle/Factory/AssetsFileFiltersManagerFactory.php',
     'AssetsBundle\Factory\AssetFileFilter\GifAssetFileFilterFactory' => __DIR__ . '/src/AssetsBundle/Factory/AssetFileFilter/GifAssetFileFilterFactory.php',
     'AssetsBundle\Factory\AssetFileFilter\JpegAssetFileFilterFactory' => __DIR__ . '/src/AssetsBundle/Factory/AssetFileFilter/JpegAssetFileFilterFactory.php',
     'AssetsBundle\Factory\AssetFileFilter\JsAssetFileFilterFactory' => __DIR__ . '/src/AssetsBundle/Factory/AssetFileFilter/JsAssetFileFilterFactory.php',
@@ -32,9 +29,20 @@ return array(
     'AssetsBundle\Factory\ToolsServiceFactory' => __DIR__ . '/src/AssetsBundle/Factory/ToolsServiceFactory.php',
     'AssetsBundle\Factory\ToolsControllerFactory' => __DIR__ . '/src/AssetsBundle/Factory/ToolsControllerFactory.php',
     'AssetsBundle\Mvc\Controller\AbstractActionController' => __DIR__ . '/src/AssetsBundle/Mvc/Controller/AbstractActionController.php',
-    'AssetsBundle\Service\Service' => __DIR__ . '/src/AssetsBundle/Service/Service.php',
     'AssetsBundle\Service\ServiceOptions' => __DIR__ . '/src/AssetsBundle/Service/ServiceOptions.php',
-    'AssetsBundle\Service\ToolsService' => __DIR__ . '/src/AssetsBundle/Service/ToolsService.php',
     'AssetsBundle\View\Renderer\JsCustomRenderer' => __DIR__ . '/src/AssetsBundle/View/Renderer/JsCustomRenderer.php',
     'AssetsBundle\View\Strategy\JsCustomStrategy' => __DIR__ . '/src/AssetsBundle/View/Strategy/JsCustomStrategy.php',
+
+	// Deleted for ZF3.  These are now factories, configured in ./config/module.config.service-manager.php
+    // 'AssetsBundle\AssetFile\AssetFileFiltersManager' => __DIR__ . '/src/AssetsBundle/AssetFile/AssetFileFiltersManager.php',
+    // 'AssetsBundle\AssetFile\AssetFilesCacheManager' => __DIR__ . '/src/AssetsBundle/AssetFile/AssetFilesCacheManager.php',
+    // 'AssetsBundle\AssetFile\AssetFilesConfiguration' => __DIR__ . '/src/AssetsBundle/AssetFile/AssetFilesConfiguration.php',
+    // 'AssetsBundle\AssetFile\AssetFilesManager' => __DIR__ . '/src/AssetsBundle/AssetFile/AssetFilesManager.php',
+    // 'AssetsBundle\Service\Service' => __DIR__ . '/src/AssetsBundle/Service/Service.php',
+    // 'AssetsBundle\Service\ToolsService' => __DIR__ . '/src/AssetsBundle/Service/ToolsService.php',
+
+
+	// Newly added for ZF3
+	'AssetsBundleTest\Controller\TestController' => __DIR__ . '/tests/AssetsBundleTest/Controller/TestController.php',
+	'AssetsBundle\Service\ToolsService' => __DIR__ . '/src/AssetsBundle/Service/ToolsService.php',
 );

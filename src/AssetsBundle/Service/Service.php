@@ -40,15 +40,24 @@ class Service implements \Zend\EventManager\ListenerAggregateInterface
 
     /**
      * @param \Zend\EventManager\EventManagerInterface $oEventManager
+     * @param int                   $priority
+     *
      * @return \AssetsBundle\Service\Service
      */
-    public function attach(\Zend\EventManager\EventManagerInterface $oEventManager)
+    public function attach(\Zend\EventManager\EventManagerInterface $oEventManager, $priority = 1)
     {
         // Assets rendering
-        $this->listeners[] = $oEventManager->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER, array($this, 'renderAssets'));
+        $this->listeners[] = $oEventManager->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER,
+        											array($this, 'renderAssets'),
+        											$priority);
 
         // MVC errors
-        $this->listeners += $oEventManager->attach(array(\Zend\Mvc\MvcEvent::EVENT_DISPATCH_ERROR, \Zend\Mvc\MvcEvent::EVENT_RENDER_ERROR), array($this, 'consoleError'));
+        $this->listeners[] = $oEventManager->attach(\Zend\Mvc\MvcEvent::EVENT_DISPATCH_ERROR,
+        											array($this, 'consoleError'),
+        											$priority);
+        $this->listeners[] = $oEventManager->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER_ERROR,
+        											array($this, 'consoleError'),
+        											$priority);
 
         return $this;
     }
@@ -95,10 +104,10 @@ class Service implements \Zend\EventManager\ListenerAggregateInterface
 
         // Define options from route match
         $oRouteMatch = $oEvent->getRouteMatch();
-        if ($oRouteMatch instanceof \Zend\Mvc\Router\RouteMatch) {
+        if ($oRouteMatch instanceof \Zend\Router\RouteMatch) {
             // Retrieve controller
             if ($sControllerName = $oRouteMatch->getParam('controller')) {
-                $oControllerLoader = $oServiceManager->get('ControllerLoader');
+                $oControllerLoader = $oServiceManager->get('ControllerManager');
                 if ($oControllerLoader->has($sControllerName) && ($oController = $oControllerLoader->get($sControllerName))) {
                     $oOptions->setControllerName($sControllerName);
                     $sControllerClass = get_class($oController);
@@ -125,10 +134,10 @@ class Service implements \Zend\EventManager\ListenerAggregateInterface
 
         // Retrieve cached Css & Js assets
         $aAssets = array_merge(
-            $oAssetFilesManager->getCachedAssetsFiles(\AssetsBundle\AssetFile\AssetFile::ASSET_CSS),                    
+            $oAssetFilesManager->getCachedAssetsFiles(\AssetsBundle\AssetFile\AssetFile::ASSET_CSS),
             $oAssetFilesManager->getCachedAssetsFiles(\AssetsBundle\AssetFile\AssetFile::ASSET_JS)
         );
-        
+
         // Render Css and Js assets
         $this->displayAssets($aAssets);
 
@@ -222,7 +231,7 @@ class Service implements \Zend\EventManager\ListenerAggregateInterface
     public function getOptions()
     {
         if (!($this->options instanceof \AssetsBundle\Service\ServiceOptions)) {
-            $this->setOptions(new \AssetsBundle\Service\ServiceOptions());
+        	throw new \LogicException('As of ZF3, you must inject the ServiceOptions from the Service factory.');
         }
         return $this->options;
     }
@@ -243,7 +252,7 @@ class Service implements \Zend\EventManager\ListenerAggregateInterface
     public function getAssetFilesManager()
     {
         if (!($this->assetFilesManager instanceof \AssetsBundle\AssetFile\AssetFilesManager)) {
-            $this->setAssetFilesManager(new \AssetsBundle\AssetFile\AssetFilesManager());
+        	throw new \LogicException('As of ZF3, you must inject the AssetFilesManager from the Service factory.');
         }
         return $this->assetFilesManager;
     }

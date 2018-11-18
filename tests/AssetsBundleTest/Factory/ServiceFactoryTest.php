@@ -2,7 +2,7 @@
 
 namespace AssetsBundleTest\Factory;
 
-class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
+class ServiceFactoryTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var array
@@ -31,9 +31,12 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
         if (!$bAllowOverride) {
             $oServiceManager->setAllowOverride(true);
         }
-        $oServiceManager->setService('Config', $aConfiguration)->setAllowOverride($bAllowOverride);
+        $oServiceManager->setService('Config', $aConfiguration);
+        $oServiceManager->setAllowOverride($bAllowOverride);
 
         $this->serviceFactory->createService(\AssetsBundleTest\Bootstrap::getServiceManager());
+
+        $this->assertTrue(true, 'This is here to suppress warnings from PHPUnit about it being a risky test.  If we threw an exception, we failed.');
     }
 
     public function testCreateServiceWithClassnameFilter() {
@@ -45,9 +48,12 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
         if (!$bAllowOverride) {
             $oServiceManager->setAllowOverride(true);
         }
-        $oServiceManager->setService('Config', $aConfiguration)->setAllowOverride($bAllowOverride);
+        $oServiceManager->setService('Config', $aConfiguration);
+        $oServiceManager->setAllowOverride($bAllowOverride);
 
         $this->serviceFactory->createService(\AssetsBundleTest\Bootstrap::getServiceManager());
+
+        $this->assertTrue(true, 'This is here to suppress warnings from PHPUnit about it being a risky test.  If we threw an exception, we failed.');
     }
 
     public function testCreateServiceWithClassnameRendererToStrategy() {
@@ -59,9 +65,12 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
         if (!$bAllowOverride) {
             $oServiceManager->setAllowOverride(true);
         }
-        $oServiceManager->setService('Config', $aConfiguration)->setAllowOverride($bAllowOverride);
+        $oServiceManager->setService('Config', $aConfiguration);
+        $oServiceManager->setAllowOverride($bAllowOverride);
 
         $this->serviceFactory->createService(\AssetsBundleTest\Bootstrap::getServiceManager());
+
+        $this->assertTrue(true, 'This is here to suppress warnings from PHPUnit about it being a risky test.  If we threw an exception, we failed.');
     }
 
     public function testCreateServiceWithoutAssetsPath() {
@@ -73,9 +82,12 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
         if (!$bAllowOverride) {
             $oServiceManager->setAllowOverride(true);
         }
-        $oServiceManager->setService('Config', $aConfiguration)->setAllowOverride($bAllowOverride);
+        $oServiceManager->setService('Config', $aConfiguration);
+        $oServiceManager->setAllowOverride($bAllowOverride);
 
         $this->serviceFactory->createService(\AssetsBundleTest\Bootstrap::getServiceManager());
+
+        $this->assertTrue(true, 'This is here to suppress warnings from PHPUnit about it being a risky test.  If we threw an exception, we failed.');
     }
 
     public function tearDown() {
@@ -84,7 +96,8 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase {
         if (!$bAllowOverride) {
             $oServiceManager->setAllowOverride(true);
         }
-        $oServiceManager->setService('Config', $this->configuration)->setAllowOverride($bAllowOverride);
+        $oServiceManager->setService('Config', $this->configuration);
+        $oServiceManager->setAllowOverride($bAllowOverride);
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 namespace AssetsBundleTest;
-class ModuleTest extends \PHPUnit_Framework_TestCase{
+class ModuleTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @var \AssetsBundle\Module
@@ -19,12 +19,13 @@ class ModuleTest extends \PHPUnit_Framework_TestCase{
 		$this->event
 		->setViewModel(new \Zend\View\Model\ViewModel())
 		->setApplication(\AssetsBundleTest\Bootstrap::getServiceManager()->get('Application'))
-		->setRouter(\Zend\Mvc\Router\Http\TreeRouteStack::factory(isset($aConfiguration['router'])?$aConfiguration['router']:array()))
-		->setRouteMatch(new \Zend\Mvc\Router\RouteMatch(array('controller' => 'test-module','action' => 'test-module\index-controller')));
+		->setRouter(\Zend\Router\Http\TreeRouteStack::factory(isset($aConfiguration['router'])?$aConfiguration['router']:array()))
+		->setRouteMatch(new \Zend\Router\RouteMatch(array('controller' => 'test-module','action' => 'test-module\index-controller')));
 	}
 
-	public function testGetConsoleUsager(){
-		$this->assertTrue(is_array($this->module->getConsoleUsage(\AssetsBundleTest\Bootstrap::getServiceManager()->get('console'))));
+	public function testGetConsoleUsager() {
+		$oConsoleService = \AssetsBundleTest\Bootstrap::getServiceManager()->get('console');
+		$this->assertTrue(is_array($this->module->getConsoleUsage($oConsoleService)));
 	}
 
 	public function testGetAutoloaderConfig(){

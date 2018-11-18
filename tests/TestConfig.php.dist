@@ -1,7 +1,9 @@
 <?php
 return array(
     'modules' => array(
-        'AssetsBundle'
+        'AssetsBundle',
+        'Zend\Router',
+        'Zend\Mvc\Console'
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(

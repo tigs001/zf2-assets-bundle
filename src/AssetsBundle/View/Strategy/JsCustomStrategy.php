@@ -10,7 +10,7 @@ class JsCustomStrategy implements \Zend\EventManager\ListenerAggregateInterface 
     protected $serviceLocator;
 
     /**
-     * @var \Zend\Mvc\Router\RouteInterface
+     * @var \Zend\Router\RouteInterface
      */
     protected $oRouter;
 
@@ -44,17 +44,17 @@ class JsCustomStrategy implements \Zend\EventManager\ListenerAggregateInterface 
         throw new \LogicException('Renderer is undefined');
     }
 
-    public function setRouter(\Zend\Mvc\Router\RouteInterface $oRouter){
+    public function setRouter(\Zend\Router\RouteInterface $oRouter){
         $this->oRouter = $oRouter;
         return $this;
     }
     public function getRouter(){
-        if ($this->oRouter instanceof \Zend\Mvc\Router\RouteInterface) {
+        if ($this->oRouter instanceof \Zend\Router\RouteInterface) {
             return $this->oRouter;
         }
         throw new \LogicException('Router is undefined');
     }
-    
+
     /**
      * Attach the aggregate to the specified event manager
      * @param \Zend\EventManager\EventManagerInterface $oEvents
@@ -73,9 +73,9 @@ class JsCustomStrategy implements \Zend\EventManager\ListenerAggregateInterface 
      */
     public function detach(\Zend\EventManager\EventManagerInterface $oEvents) {
         foreach ($this->listeners as $iIndex => $oListener) {
-            if ($oEvents->detach($oListener)) {
-                unset($this->listeners[$iIndex]);
-            }
+        	// detach() no longer returns a result.  So we cannot test its success or not.
+            $oEvents->detach($oListener);
+            unset($this->listeners[$iIndex]);
         }
     }
 
@@ -90,7 +90,7 @@ class JsCustomStrategy implements \Zend\EventManager\ListenerAggregateInterface 
         if (  //Retrieve request
                 ($oRequest = $oEvent->getRequest()) instanceof \Zend\Http\Request
                 //Retrieve route match
-                && ($oRouteMatch = $oRouter->match($oRequest)) instanceof \Zend\Mvc\Router\RouteMatch && $oRouteMatch->getParam('action') === \AssetsBundle\Mvc\Controller\AbstractActionController::JS_CUSTOM_ACTION
+                && ($oRouteMatch = $oRouter->match($oRequest)) instanceof \Zend\Router\RouteMatch && $oRouteMatch->getParam('action') === \AssetsBundle\Mvc\Controller\AbstractActionController::JS_CUSTOM_ACTION
         ) {
             if (!($oViewModel = $oEvent->getModel()) instanceof \Zend\View\Model\ViewModel) {
                 throw new \UnexpectedValueException(sprintf(
@@ -137,4 +137,19 @@ class JsCustomStrategy implements \Zend\EventManager\ListenerAggregateInterface 
         $oEvent->getResponse()->setContent($sResponseContent)->getHeaders()->addHeaderLine('content-type', 'text/javascript');
     }
 
+
+
+    /**
+     * getListeners() - Return the current array of listeners that have been
+     * added to the Event Manager.
+     *
+     * This is added for testing purposes as of ZF3 we can no longer extract
+     * the set of attached listeners from the Event Manager.
+     *
+     * @return \Zend\Stdlib\CallbackHandler[]
+     */
+    public function getListeners()
+    {
+    	return $this->listeners;
+    }
 }
