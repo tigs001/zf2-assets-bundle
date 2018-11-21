@@ -47,8 +47,24 @@ class Bootstrap {
                         'module_paths' => $aZf2ModulePaths
                     )
                         ), $aTestConfig);
+
+        /*
+         * Because a lot of our tests rely on newly creating
+         * services, with often different parameters in order
+         * to test their behaviour, I am going set "shared_by_default"
+         * to false.  This will cause the service manager to always
+         * execute a new initialiser for any service.
+         *
+         * While this should assist testing, it is not how we
+         * would be configured in an application environment, so
+         * it may cause invalid test results.  However at this time
+         * it seems like the better option.
+         */
         $smconfig = new \Zend\Mvc\Service\ServiceManagerConfig();
-        static::$serviceManager = new \Zend\ServiceManager\ServiceManager($smconfig->toArray());
+        $mergedconfig = array_merge($smconfig->toArray(), array(
+         														'shared_by_default' => false,
+							        						));
+        static::$serviceManager = new \Zend\ServiceManager\ServiceManager($mergedconfig);
         static::$serviceManager->setService('ApplicationConfig', static::$config);
 
         $modulemanager = static::$serviceManager->get('ModuleManager');

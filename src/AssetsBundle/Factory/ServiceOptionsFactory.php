@@ -51,7 +51,7 @@ class ServiceOptionsFactory implements \Zend\ServiceManager\FactoryInterface {
 
         //Define base URL of the application
         if (!isset($aOptions['baseUrl'])) {
-            if (($oRequest = $oServiceLocator->get('request')) instanceof \Zend\Http\PhpEnvironment\Request) {
+            if (($oRequest = $container->get('request')) instanceof \Zend\Http\PhpEnvironment\Request) {
                 $aOptions['baseUrl'] = $oRequest->getBaseUrl();
             } else {
                 $oRequest = new \Zend\Http\PhpEnvironment\Request();
