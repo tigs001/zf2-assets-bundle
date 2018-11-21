@@ -54,7 +54,7 @@ class ToolsServiceFactory implements \Zend\ServiceManager\FactoryInterface
      * {@inheritDoc}
      * @see \Zend\ServiceManager\FactoryInterface::createService()
      */
-    public function createService($serviceLocator)
+    public function createService(\Zend\ServiceManager\ServiceLocatorInterface $serviceLocator)
     {
     	return $this->invoke($serviceLocator);
     }
